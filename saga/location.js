@@ -1,5 +1,6 @@
 import { channel } from 'redux-saga';
 import { take, put, call } from 'redux-saga/effects';
+import Geolocation from 'react-native-geolocation-service'
 
 export const locationChannel = channel()
 
@@ -18,7 +19,7 @@ export function * watchLocationChannel() {
 
 export function * getCurrentPosition(options) {
     locationChannel.put({type: REDUX_SAGA_LOCATION_ACTION_REQUEST})
-    navigator.geolocation.getCurrentPosition(
+    Geolocation.getCurrentPosition(
       position => {
         locationChannel.put({type: REDUX_SAGA_LOCATION_ACTION_SET_POSITION, position})
       },
@@ -29,7 +30,7 @@ export function * getCurrentPosition(options) {
 
 export function * watchCurrentPosition(options) {
     locationChannel.put({type: REDUX_SAGA_LOCATION_ACTION_REQUEST})
-    navigator.geolocation.watchPosition(
+    Geolocation.watchPosition(
       position => {
         locationChannel.put({type: REDUX_SAGA_LOCATION_ACTION_SET_POSITION, position})
       },
